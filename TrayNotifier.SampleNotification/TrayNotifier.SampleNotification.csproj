@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B882BF78-AB43-470E-8CD7-8410117A2AEC}</ProjectGuid>
+    <ProjectGuid>{2532630A-E086-45AB-A4DF-E6BE22BCA8CC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TrayNotifier.Business</RootNamespace>
-    <AssemblyName>TrayNotifier.Business</AssemblyName>
+    <RootNamespace>TrayNotifier.SampleNotification</RootNamespace>
+    <AssemblyName>TrayNotifier.SampleNotification</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,12 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AbstractNotificationSystem.cs" />
-    <Compile Include="Helpers\ByteHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleNotificationSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TrayNotifier.Business\TrayNotifier.Business.csproj">
+      <Project>{B882BF78-AB43-470E-8CD7-8410117A2AEC}</Project>
+      <Name>TrayNotifier.Business</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

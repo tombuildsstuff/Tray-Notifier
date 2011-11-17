@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrayNotifier", "TrayNotifie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrayNotifier.Business", "TrayNotifier.Business\TrayNotifier.Business.csproj", "{B882BF78-AB43-470E-8CD7-8410117A2AEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrayNotifier.SampleNotification", "TrayNotifier.SampleNotification\TrayNotifier.SampleNotification.csproj", "{2532630A-E086-45AB-A4DF-E6BE22BCA8CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{B882BF78-AB43-470E-8CD7-8410117A2AEC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B882BF78-AB43-470E-8CD7-8410117A2AEC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B882BF78-AB43-470E-8CD7-8410117A2AEC}.Release|x86.ActiveCfg = Release|Any CPU
+		{2532630A-E086-45AB-A4DF-E6BE22BCA8CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2532630A-E086-45AB-A4DF-E6BE22BCA8CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2532630A-E086-45AB-A4DF-E6BE22BCA8CC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2532630A-E086-45AB-A4DF-E6BE22BCA8CC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2532630A-E086-45AB-A4DF-E6BE22BCA8CC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2532630A-E086-45AB-A4DF-E6BE22BCA8CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2532630A-E086-45AB-A4DF-E6BE22BCA8CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2532630A-E086-45AB-A4DF-E6BE22BCA8CC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2532630A-E086-45AB-A4DF-E6BE22BCA8CC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2532630A-E086-45AB-A4DF-E6BE22BCA8CC}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

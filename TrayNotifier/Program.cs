@@ -1,9 +1,8 @@
-﻿using TrayNotifier.Business;
-
-namespace TrayNotifier
+﻿namespace TrayNotifier
 {
     using System;
     using System.Windows.Forms;
+    using Business;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.Resolvers.SpecializedResolvers;
     using Castle.Windsor;
@@ -22,9 +21,10 @@ namespace TrayNotifier
             Application.SetCompatibleTextRenderingDefault(false);
 
             SetupContainer();
-            var window = _container.Resolve<NotificationWindow>();
+            var notificationSystems = _container.ResolveAll<AbstractNotificationSystem>();
+            var window = new NotificationWindow(notificationSystems);
             Application.Run(window);
-            _container.Release(window);
+            _container.Release(notificationSystems);
         }
 
         private static void SetupContainer()
@@ -33,7 +33,7 @@ namespace TrayNotifier
             _container.Kernel.Resolver.AddSubResolver(new ArrayResolver(_container.Kernel));
             var assemblies = AllTypes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory));
             _container.Register(assemblies.BasedOn<Form>().Configure(c => c.LifeStyle.Transient));
-            _container.Register(assemblies.BasedOn<AbstractNotificationRegistration>().WithService.Base().Configure(c => c.LifeStyle.Transient));
+            _container.Register(assemblies.BasedOn<AbstractNotificationSystem>().WithService.Base().Configure(c => c.LifeStyle.Transient));
         }
     }
 }
