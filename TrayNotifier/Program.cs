@@ -33,7 +33,7 @@
             _container.Kernel.Resolver.AddSubResolver(new ArrayResolver(_container.Kernel));
             var assemblies = AllTypes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory));
             _container.Register(assemblies.BasedOn<Form>().Configure(c => c.LifeStyle.Transient));
-            _container.Register(assemblies.BasedOn<AbstractNotificationSystem>().WithService.Base().Configure(c => c.LifeStyle.Transient));
+            _container.Register(assemblies.BasedOn<AbstractNotificationSystem>().Configure(c => c.LifeStyle.Transient));
         }
     }
 }
