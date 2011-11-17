@@ -33,6 +33,7 @@
   <ItemGroup>
     <Compile Include="AbstractNotificationSystem.cs" />
     <Compile Include="Helpers\ByteHelpers.cs" />
+    <Compile Include="INotificationRegistration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

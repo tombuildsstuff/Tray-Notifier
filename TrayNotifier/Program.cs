@@ -33,6 +33,13 @@
             _container.Kernel.Resolver.AddSubResolver(new ArrayResolver(_container.Kernel));
             var assemblies = AllTypes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory));
             _container.Register(assemblies.BasedOn<Form>().Configure(c => c.LifeStyle.Transient));
+            _container.Register(assemblies.BasedOn<INotificationRegistration>().Configure(c => c.LifeStyle.Transient));
+
+            var registrations = _container.ResolveAll<INotificationRegistration>();
+            foreach (var registration in registrations)
+                foreach (var component in registration.RegisterComponents())
+                    _container.Register(Component.For(component.GetType()).Instance(component));
+
             _container.Register(assemblies.BasedOn<AbstractNotificationSystem>().Configure(c => c.LifeStyle.Transient));
         }
     }
