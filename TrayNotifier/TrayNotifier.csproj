@@ -66,10 +66,6 @@
       <Project>{B882BF78-AB43-470E-8CD7-8410117A2AEC}</Project>
       <Name>TrayNotifier.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TrayNotifier.SampleNotification\TrayNotifier.SampleNotification.csproj">
-      <Project>{2532630A-E086-45AB-A4DF-E6BE22BCA8CC}</Project>
-      <Name>TrayNotifier.SampleNotification</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="1321568088_Problem.ico" />
