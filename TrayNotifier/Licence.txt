@@ -1,0 +1,6 @@
+﻿Tray Notifier
+	Licence: (TODO: select a licence..)
+
+Icon
+	Downloaded From: http://www.iconfinder.com/icondetails/32533/24/alert_problem_icon
+	Licence: http://cdn.iconfinder.net/data/icons/freeapplication/readme.txt
