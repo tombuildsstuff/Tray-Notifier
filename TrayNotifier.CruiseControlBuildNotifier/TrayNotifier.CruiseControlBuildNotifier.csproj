@@ -31,12 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="OpenFileSystem">
+      <HintPath>..\lib\OpenFileSystem\OpenFileSystem.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CruiseControlBuildNotificationSystem.cs" />
+    <Compile Include="CruiseControlNotificationRegistration.cs" />
     <Compile Include="Models\CruiseControlProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,4 +1,7 @@
-﻿namespace TrayNotifier
+﻿using OpenFileSystem.IO;
+using OpenFileSystem.IO.FileSystems.Local;
+
+namespace TrayNotifier
 {
     using System;
     using System.Windows.Forms;
@@ -31,6 +34,8 @@
         {
             _container = new WindsorContainer();
             _container.Kernel.Resolver.AddSubResolver(new ArrayResolver(_container.Kernel));
+            _container.Register(Component.For<IFileSystem>().Instance(LocalFileSystem.Instance));
+
             var assemblies = AllTypes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory));
             _container.Register(assemblies.BasedOn<Form>().Configure(c => c.LifeStyle.Transient));
             _container.Register(assemblies.BasedOn<INotificationRegistration>().Configure(c => c.LifeStyle.Transient));
