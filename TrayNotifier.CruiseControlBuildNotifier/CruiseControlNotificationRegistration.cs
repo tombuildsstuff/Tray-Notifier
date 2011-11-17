@@ -6,9 +6,11 @@ namespace TrayNotifier.CruiseControlBuildNotifier
 {
     public class CruiseControlNotificationRegistration : INotificationRegistration
     {
+        private readonly INotificationRegistration _notificationRegistration;
         private readonly IFileSystem _fileSystem;
-        public CruiseControlNotificationRegistration(IFileSystem fileSystem)
+        public CruiseControlNotificationRegistration(INotificationRegistration notificationRegistration, IFileSystem fileSystem)
         {
+            _notificationRegistration = notificationRegistration;
             _fileSystem = fileSystem;
         }
 

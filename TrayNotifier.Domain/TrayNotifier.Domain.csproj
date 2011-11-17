@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B882BF78-AB43-470E-8CD7-8410117A2AEC}</ProjectGuid>
+    <ProjectGuid>{DE0CF82F-9778-436F-9101-18506DA639EF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TrayNotifier.Business</RootNamespace>
-    <AssemblyName>TrayNotifier.Business</AssemblyName>
+    <RootNamespace>TrayNotifier.Domain</RootNamespace>
+    <AssemblyName>TrayNotifier.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,14 +31,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AbstractNotificationSystem.cs" />
-    <Compile Include="Helpers\ByteHelpers.cs" />
-    <Compile Include="AbstractConfigurationDetails.cs" />
-    <Compile Include="INotificationRegistration.cs" />
+    <Compile Include="ConfigurationBasedNotificationConfigurationDetails.cs" />
+    <Compile Include="DependencyRegistration\CastleWindsorDependencyRegistration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TrayNotifier.Business\TrayNotifier.Business.csproj">
+      <Project>{B882BF78-AB43-470E-8CD7-8410117A2AEC}</Project>
+      <Name>TrayNotifier.Business</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\packages\Castle.Windsor.2.5.4\lib\net40\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

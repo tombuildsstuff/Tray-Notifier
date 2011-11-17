@@ -69,6 +69,10 @@
       <Project>{B882BF78-AB43-470E-8CD7-8410117A2AEC}</Project>
       <Name>TrayNotifier.Business</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TrayNotifier.Domain\TrayNotifier.Domain.csproj">
+      <Project>{DE0CF82F-9778-436F-9101-18506DA639EF}</Project>
+      <Name>TrayNotifier.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="1321568088_Problem.ico" />

@@ -22,7 +22,7 @@ namespace TrayNotifier
         {
             if (_notificationSystems.Length == 0)
             {
-                DisplayMessage(30, "No Notifications Configured", "Are there any in the BIN directory?", AbstractNotificationSystem.Icon.Error);
+                DisplayMessage(30, "No Notifications Configured", "Are there any in the Plugin directory?", AbstractNotificationSystem.Icon.Error);
                 return;
             }
 

@@ -1,7 +1,4 @@
-﻿using OpenFileSystem.IO;
-using OpenFileSystem.IO.FileSystems.Local;
-
-namespace TrayNotifier
+﻿namespace TrayNotifier
 {
     using System;
     using System.Windows.Forms;
@@ -9,6 +6,10 @@ namespace TrayNotifier
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.Resolvers.SpecializedResolvers;
     using Castle.Windsor;
+    using Domain;
+    using Domain.DependencyRegistration;
+    using OpenFileSystem.IO;
+    using OpenFileSystem.IO.FileSystems.Local;
 
     public static class Program
     {
@@ -34,18 +35,9 @@ namespace TrayNotifier
         {
             _container = new WindsorContainer();
             _container.Kernel.Resolver.AddSubResolver(new ArrayResolver(_container.Kernel));
+            _container.Register(Component.For<AbstractConfigurationDetails>().ImplementedBy<ConfigurationBasedNotificationConfigurationDetails>());
             _container.Register(Component.For<IFileSystem>().Instance(LocalFileSystem.Instance));
-
-            var assemblies = AllTypes.FromAssemblyInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory));
-            _container.Register(assemblies.BasedOn<Form>().Configure(c => c.LifeStyle.Transient));
-            _container.Register(assemblies.BasedOn<INotificationRegistration>().Configure(c => c.LifeStyle.Transient));
-
-            var registrations = _container.ResolveAll<INotificationRegistration>();
-            foreach (var registration in registrations)
-                foreach (var component in registration.RegisterComponents())
-                    _container.Register(Component.For(component.GetType()).Instance(component));
-
-            _container.Register(assemblies.BasedOn<AbstractNotificationSystem>().Configure(c => c.LifeStyle.Transient));
+            _container.RegisterAllPlugins(_container.Resolve<AbstractConfigurationDetails>());
         }
     }
 }
