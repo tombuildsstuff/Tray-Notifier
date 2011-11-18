@@ -35,9 +35,27 @@ namespace TrayNotifier.CruiseControlBuildNotifier
             _cruiseControlInstallUrl = cruiseControlInstallUrl;
             _numSecondsToCheck = numSecondsToCheck;
 
+            _currentProjects = new List<CruiseControlProject>();
             _webClient = new WebClient { Credentials = credentials, CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore) };
             _webClient.DownloadDataCompleted += Data_Downloaded;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CruiseControlBuildNotificationSystem"/> class using the Cruise Control Configuration provided
+        /// </summary>
+        /// <param name="configuration">
+        /// Cruise Control Configuration Implementation
+        /// </param>
+        public CruiseControlBuildNotificationSystem(CruiseControlConfiguration configuration)
+        {
+            _cruiseControlInstallUrl = configuration.InstallDirectoryUrl;
+            _numSecondsToCheck = configuration.CheckInterval ?? 90;
+
+            var credentials = !string.IsNullOrWhiteSpace(configuration.Username) ? new NetworkCredential(configuration.Username, configuration.Password, configuration.Domain) : null;
+            _webClient = new WebClient { Credentials = credentials, CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore) };
+            _webClient.DownloadDataCompleted += Data_Downloaded;
+        }
+
 
         public override int NumberOfSecondsToCheck()
         {

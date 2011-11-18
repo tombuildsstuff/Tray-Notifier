@@ -35,12 +35,14 @@
       <HintPath>..\lib\OpenFileSystem\OpenFileSystem.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CruiseControlBuildNotificationSystem.cs" />
     <Compile Include="CruiseControlNotificationRegistration.cs" />
+    <Compile Include="Models\CruiseControlConfiguration.cs" />
     <Compile Include="Models\CruiseControlProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
