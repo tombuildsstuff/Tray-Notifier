@@ -3,9 +3,7 @@ Tray Notifier
 
 A simple Tray Notification application... with plugin support!
 
-By Tom Harvey
-*  [Twitter @tombuildsstuff](http://twitter.com/tombuildsstuff)
-*  [Website http://ibuildstuff.co.uk](http://ibuildstuff.co.uk)
+By Tom Harvey - [Twitter @tombuildsstuff](http://twitter.com/tombuildsstuff) - [Website](http://ibuildstuff.co.uk)
 
 
 Get Started
@@ -27,8 +25,11 @@ Build Your Own Plugin
 Want to build your own plugin? Awesome.
 
 Here's how:
+
 *  Implement AbstractNotificationSystem (TrayNotifier.Business.AbstractNotificationSystem)
+
 *  (do your coding thing!)
+
 *  Drop your compiled binaries in the PluginDirectory specified in 'TrayNotifier.config'
 
 
