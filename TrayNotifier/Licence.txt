@@ -1,5 +1,6 @@
 ﻿Tray Notifier
-	Licence: (TODO: select a licence..)
+	Licence: GPLv3 - http://www.opensource.org/licenses/gpl-3.0.html
+	Built by Tom Harvey - @tombuildsstuff - http://ibuildstuff.co.uk
 
 Icon
 	Downloaded From: http://www.iconfinder.com/icondetails/32533/24/alert_problem_icon
