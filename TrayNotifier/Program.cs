@@ -37,6 +37,7 @@
             _container.Kernel.Resolver.AddSubResolver(new ArrayResolver(_container.Kernel));
             _container.Register(Component.For<AbstractConfigurationDetails>().ImplementedBy<ConfigurationBasedNotificationConfigurationDetails>());
             _container.Register(Component.For<IFileSystem>().Instance(LocalFileSystem.Instance));
+            _container.RegisterAllPluginsInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory));
             _container.RegisterAllPlugins(_container.Resolve<AbstractConfigurationDetails>());
         }
     }

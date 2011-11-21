@@ -8,7 +8,12 @@ namespace TrayNotifier.Domain.DependencyRegistration
     {
         public static void RegisterAllPlugins(this IWindsorContainer container, AbstractConfigurationDetails configuration)
         {
-            var assemblies = AllTypes.FromAssemblyInDirectory(new AssemblyFilter(configuration.PluginDirectory));
+            container.RegisterAllPluginsInDirectory(new AssemblyFilter(configuration.PluginDirectory));
+        }
+
+        public static void RegisterAllPluginsInDirectory(this IWindsorContainer container, AssemblyFilter filter)
+        {
+            var assemblies = AllTypes.FromAssemblyInDirectory(filter);
             container.Register(assemblies.BasedOn<INotificationRegistration>().Configure(c => c.LifeStyle.Transient));
 
             var registrations = container.ResolveAll<INotificationRegistration>();

@@ -51,11 +51,11 @@ namespace TrayNotifier.CruiseControlBuildNotifier
             _cruiseControlInstallUrl = configuration.InstallDirectoryUrl;
             _numSecondsToCheck = configuration.CheckInterval ?? 90;
 
+            _currentProjects = new List<CruiseControlProject>();
             var credentials = !string.IsNullOrWhiteSpace(configuration.Username) ? new NetworkCredential(configuration.Username, configuration.Password, configuration.Domain) : null;
             _webClient = new WebClient { Credentials = credentials, CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore) };
             _webClient.DownloadDataCompleted += Data_Downloaded;
         }
-
 
         public override int NumberOfSecondsToCheck()
         {
@@ -78,7 +78,6 @@ namespace TrayNotifier.CruiseControlBuildNotifier
             if (e.Error != null)
                 throw e.Error;
 
-
             var xml = e.Result.ConvertToString();
             var newProjects = CruiseControlProject.ParseCruiseControlExportToListOfProjects(xml);
             var changedProjects = new List<CruiseControlProject>();
@@ -90,10 +89,11 @@ namespace TrayNotifier.CruiseControlBuildNotifier
                 if (existing == null || (existing.LastBuildStatus != project.LastBuildStatus) || (existing.LastBuildTime != project.LastBuildTime))
                     changedProjects.Add(project);
             }
+
             _currentProjects = newProjects;
 
-            var successful = changedProjects.Where(cp => cp.LastBuildStatus == "Failed").OrderBy(p => p.Name).ToList();
-            var failed = changedProjects.Where(cp => cp.LastBuildStatus == "Successful").OrderBy(p => p.Name).ToList();
+            var successful = changedProjects.Where(cp => cp.LastBuildStatus == "Success").OrderBy(p => p.Name).ToList();
+            var failed = changedProjects.Where(cp => cp.LastBuildStatus == "Failed").OrderBy(p => p.Name).ToList();
             var unknown = changedProjects.Where(cp => !successful.Any(s => s.Name == cp.Name) && !failed.Any(f => f.Name == cp.Name)).ToList();
 
             if (!initialLoad)
@@ -108,12 +108,13 @@ namespace TrayNotifier.CruiseControlBuildNotifier
                                     string.Format("Broke At {0} {1}", project.LastBuildTime.Value.ToLongDateString(), project.LastBuildTime.Value.ToShortTimeString()),
                                     Icon.Error);
 
-            foreach (var project in successful)
-                if (MessageReceived != null)
-                    MessageReceived(6000,
-                                    string.Format("{0} Build Again", project.Name),
-                                    string.Format("Built At {0} {1}", project.LastBuildTime.Value.ToLongDateString(), project.LastBuildTime.Value.ToShortTimeString()),
-                                    Icon.Info);
+            if (!initialLoad)
+                foreach (var project in successful)
+                    if (MessageReceived != null)
+                        MessageReceived(6000,
+                                        string.Format("{0} Build Again", project.Name),
+                                        string.Format("Built At {0} {1}", project.LastBuildTime.Value.ToLongDateString(), project.LastBuildTime.Value.ToShortTimeString()),
+                                        Icon.Info);
         }
     }
 }
