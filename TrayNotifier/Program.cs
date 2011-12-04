@@ -26,7 +26,8 @@
 
             SetupContainer();
             var notificationSystems = _container.ResolveAll<AbstractNotificationSystem>();
-            var window = new NotificationWindow(notificationSystems);
+            var notificationManager = _container.Resolve<INotificationManager>();
+            var window = new NotificationWindow(notificationSystems, notificationManager);
             Application.Run(window);
             _container.Release(notificationSystems);
         }
@@ -36,6 +37,7 @@
             _container = new WindsorContainer();
             _container.Kernel.Resolver.AddSubResolver(new ArrayResolver(_container.Kernel));
             _container.Register(Component.For<AbstractConfigurationDetails>().ImplementedBy<ConfigurationBasedNotificationConfigurationDetails>());
+            _container.Register(Component.For<INotificationManager>().ImplementedBy<NotificationManager>());
             _container.Register(Component.For<IFileSystem>().Instance(LocalFileSystem.Instance));
             _container.RegisterAllPluginsInDirectory(new AssemblyFilter(AppDomain.CurrentDomain.BaseDirectory));
             _container.RegisterAllPlugins(_container.Resolve<AbstractConfigurationDetails>());
