@@ -33,6 +33,7 @@
   <ItemGroup>
     <Compile Include="ConfigurationBasedNotificationConfigurationDetails.cs" />
     <Compile Include="DependencyRegistration\CastleWindsorDependencyRegistration.cs" />
+    <Compile Include="NotificationManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -35,8 +35,10 @@
     <Compile Include="Helpers\ByteHelpers.cs" />
     <Compile Include="AbstractConfigurationDetails.cs" />
     <Compile Include="Helpers\StringHelpers.cs" />
+    <Compile Include="INotificationManager.cs" />
     <Compile Include="INotificationRegistration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueuedNotificationDetails.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

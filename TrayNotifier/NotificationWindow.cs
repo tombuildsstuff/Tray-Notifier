@@ -8,21 +8,36 @@ namespace TrayNotifier
     public partial class NotificationWindow : Form
     {
         private readonly AbstractNotificationSystem[] _notificationSystems;
+        private readonly INotificationManager _notificationManager;
 
-        public NotificationWindow(AbstractNotificationSystem[] notificationSystems)
+        public NotificationWindow(AbstractNotificationSystem[] notificationSystems, INotificationManager notificationManager)
         {
             _notificationSystems = notificationSystems;
+            _notificationManager = notificationManager;
             InitializeComponent();
 
+            _notificationManager.NotificationAvailable += DisplayNotification;
             GoGoMagicStealthMode();
             Load += Window_Loaded;
+        }
+
+        private void DisplayNotification(QueuedNotificationDetails notification)
+        {
+            notificationIcon.ShowBalloonTip(notification.NumSecondsToDisplayFor, notification.Title, notification.Message, GetToolTipIcon(notification.Icon));
         }
 
         private void Window_Loaded(object sender, EventArgs e)
         {
             if (_notificationSystems.Length == 0)
             {
-                DisplayMessage(30, "No Notifications Configured", "Are there any in the Plugin directory?", AbstractNotificationSystem.Icon.Error);
+                DisplayNotification(new QueuedNotificationDetails
+                                        {
+                                            Icon = AbstractNotificationSystem.Icon.Error,
+                                            Title = "No Notifications Configured",
+                                            Message = "Are there any in the Plugin directory?",
+                                            NumSecondsToDisplayFor = 30,
+                                            DisplayAt = DateTime.Now
+                                        });
                 return;
             }
 
@@ -35,20 +50,28 @@ namespace TrayNotifier
                                         Enabled = true,
                                         Interval = notificationService.NumberOfSecondsToCheck() * 1000
                                     };
-                    timer.Tick += delegate { notificationService.Check(); };
-                    notificationService.MessageReceived += DisplayMessage;
+                    AbstractNotificationSystem service = notificationService;
+                    timer.Tick += delegate { service.Check(); };
+                    notificationService.MessageReceived += MessageReceived;
                     notificationService.Check(); // go start now!
                 }
                 catch (Exception ex)
                 {
-                    DisplayMessage(30, "Errors Launching Notifier", ex.Message, AbstractNotificationSystem.Icon.Error);
+                    DisplayNotification(new QueuedNotificationDetails
+                                        {
+                                            Icon = AbstractNotificationSystem.Icon.Error,
+                                            Title = "Error Launching Notifier",
+                                            Message = ex.Message,
+                                            NumSecondsToDisplayFor = 30,
+                                            DisplayAt = DateTime.Now
+                                        });
                 }
             }
         }
 
-        private void DisplayMessage(int secondsToNotifyFor, string title, string message, AbstractNotificationSystem.Icon icon)
+        private void MessageReceived(int secondstonotifyfor, string title, string message, AbstractNotificationSystem.Icon icon)
         {
-            notificationIcon.ShowBalloonTip(secondsToNotifyFor, title, message, GetToolTipIcon(icon));
+            _notificationManager.AddNotification(icon, title, message, secondstonotifyfor);
         }
 
         /// <summary>
